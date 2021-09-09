@@ -1,39 +1,97 @@
 import cv2
-import glob
-import itertools
+import numpy as np
+from PIL import Image
 
-# def getFilenames(exts):
-#     fnames = [glob.glob(ext) for ext in exts]
-#     fnames = list(itertools.chain.from_iterable(fnames))
-#     return fnames
 
-# exts =["*.png"]
+def get_oncho_images(onc_img):
+ 
+        # img=cv2.imread(pil_img)
+        img = cv2.cvtColor(onc_img, cv2.COLOR_RGB2HSV)
 
-# res = getFilenames(exts)  schistoImage,
-    # lfImage ,
-    # helminthsImage 
-# print(res)
-def getImages(onchoImage):
-    img = cv2.imread(onchoImage)
+        img = cv2.inRange(img, (150, 60, 100), (255, 255, 255))
 
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (11,11))
 
-    img = cv2.inRange(img, (150, 60, 100), (255, 255, 255))
+        img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel, 6)
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (11,11))
+        contours, hier = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        contour_value = len(contours)
+        print (contour_value)
+        return contour_value
+def get_schisto_images(sch_img):
+ 
+        # img=cv2.imread(pil_img)
+        img = cv2.cvtColor(sch_img, cv2.COLOR_RGB2HSV)
 
-    img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel, 6)
+        img = cv2.inRange(img, (150, 60, 100), (255, 255, 255))
 
-    contours, hier = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (11,11))
 
-    if len(contours) < 2 :
-        print('The patient is not infected')
-    elif len(contours)== 2:
-        print('The patient is infected')
-    elif len(contours) > 2:
-        print('the test is not valid')
-    print('number of lines in test is ', len(contours))
-    # print('number of lines in test is ', len(contours)/2 )
+        img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel, 6)
 
-    if len(contours) == 0:
-        print('0 value is'+ onchoImage)
+        contours, hier = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        contour_value = len(contours)
+        print (contour_value)
+        return contour_value
+def get_lf_images(lf_img):
+ 
+        # img=cv2.imread(pil_img)
+        img = cv2.cvtColor(lf_img, cv2.COLOR_RGB2HSV)
+
+        img = cv2.inRange(img, (150, 60, 100), (255, 255, 255))
+
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (11,11))
+
+        img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel, 6)
+
+        contours, hier = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        contour_value = len(contours)
+        print (contour_value)
+        return contour_value
+
+
+def get_helminths_images(hel_img):
+ 
+        # img=cv2.imread(pil_img)
+        img = cv2.cvtColor(hel_img, cv2.COLOR_RGB2HSV)
+
+        img = cv2.inRange(img, (150, 60, 100), (255, 255, 255))
+
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (11,11))
+
+        img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel, 6)
+
+        contours, hier = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        contour_value = len(contours)
+        print (contour_value)
+        return contour_value
+
+    # def getImages(onchoImage, oncho):
+        # pil_img = Image.open(onchoImage)
+        # img_name = onchoImage.info["filename"]
+
+        # # img = np.array(pil_img)
+        # img = cv2.imread(img_name)
+        # img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+        # img = cv2.inRange(img, (150, 60, 100), (255, 255, 255))
+
+        # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (11,11))
+
+        # img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel, 6)
+
+        # contours, hier = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        # if len(contours) < 2 :
+        #     oncho ="NEGATIVE"
+        # elif len(contours)== 2:
+        #     oncho = "POSITIVE"
+        # elif len(contours) > 2:
+        #     oncho = "NOT_VALID"
+        # print(img_name)
+        # print('number of lines in test is ', len(contours))
+        # # print('number of lines in test is ', len(contours)/2 )
+
+        # if len(contours) == 0:
+        #     oncho = "Not Valid 0"
+
