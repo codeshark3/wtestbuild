@@ -20,7 +20,7 @@ def getRoutes(request):
         "/api/tests/",
         "/api/tests/create/",
         "/api/tests/upload/",
-        "/api/tests/<id>/reviews/",
+        "/api/count/",
         "/api/tests/top/",
         "/api/tests/<id>",
         "/api/tests/delete/<id>/",
@@ -28,12 +28,12 @@ def getRoutes(request):
     ]
 
     return Response(routes)
-
-
+# [,Test.age.count() ]
+#results = (Test.objects.all().order_by('-created_at'))
 @api_view(["GET"])
 def getTests(request):
     tests = Test.objects.all().order_by('-created_at')
-    serializer = TestSerializer(tests, many=True)
+    serializer = TestSerializer(tests,many=True)
     return Response(serializer.data)
 
 @api_view(["POST"])
@@ -45,14 +45,10 @@ def createTest(request):
         age=data['age'],
         sex=data['sex'],
         location=data['location'],
-        onchoImage = request.FILES.get('onchoImage'),
-        
+        onchoImage = request.FILES.get('onchoImage'),     
         schistoImage = request.FILES.get('schistoImage'),
         lfImage = data['lfImage'],
         helminthsImage = data['helminthsImage'],
-        
-      
-
     )
     serializer = TestSerializer(test,many=False)
     return Response(serializer.data)
@@ -79,3 +75,40 @@ def getTest(request,pk):
     test = Test.objects.get(id=pk)
     serializer = TestSerializer(test, many=False)
     return Response(serializer.data)
+
+
+@api_view(["GET"])
+def getCount(request):
+    oTests =Test.objects.count()
+    sTests=Test.objects.count()
+    lTests=Test.objects.count()
+    hTests=Test.objects.count()
+
+    opTests=Test.objects.filter(oncho='Positive').count()
+    spTests=Test.objects.filter(schisto='Positive').count()
+    lpTests=Test.objects.filter(lf='Positive').count()
+    hpTests=Test.objects.filter(helminths='Positive').count()
+
+    onTests=oTests-opTests
+    snTests=sTests-spTests
+    lnTests=lTests-lpTests
+    hnTests=hTests-hpTests
+
+    countList = {
+        "oTests":Test.objects.count(),
+        "sTests":Test.objects.count(),
+        "lTests":Test.objects.count(),
+        "hTests":Test.objects.count(),
+        "opTests":Test.objects.filter(oncho='Positive').count(),
+        "spTests":Test.objects.filter(schisto='Positive').count(), 
+        "lpTests":Test.objects.filter(lf='Positive').count(), 
+        "hpTests":Test.objects.filter(helminths='Positive').count(),
+        "onTests":oTests-opTests,
+        "snTests":sTests-spTests,
+        "lnTests":lTests-lpTests,
+        "hnTests":hTests-hpTests
+         }
+         
+    # serializer = TestSerializer(count, many=False)
+    return Response(countList)
+

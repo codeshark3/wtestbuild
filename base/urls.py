@@ -3,7 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.getRoutes, name="routes"),
-    path('tests/', views.getTests ,name="getTests"),
+    path('tests/', views.getTests ,name="tests"),
      path('tests/create/', views.createTest ,name="createTest"),
-    path('tests/<str:pk>', views.getTest, name="getTest"),
-    ]
+    path('tests/<str:pk>', views.getTest, name="test"),
+    path('count/', views.getCount, name="count")
+    ] 

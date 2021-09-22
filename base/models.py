@@ -17,6 +17,7 @@ from io import BytesIO
 
 # Create your models here.
 class Test(models.Model):
+    
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200, null=True, blank=True)
     age = models.IntegerField( null=True, blank=True)
@@ -36,7 +37,17 @@ class Test(models.Model):
     
     def __str__(self):
         return self.name
+
+    def getCount(self):
+        ocount = self.oncho.count()
+
+
+
+
     def save(self, *args, **kwargs):
+          
+        
+        
         #open image
         onc_img = Image.open(self.onchoImage)
         sch_img = Image.open(self.schistoImage)
@@ -107,17 +118,7 @@ class Test(models.Model):
             print('Not Valid')
        
 
-        #conver back to image
-        # im_pil = Image.fromarray(img)
-        
-        # buffer = BytesIO()
-        # im_pil.save(buffer, format='png')
-        # image_png = buffer.getvalue()
-        # self.onchoImage.save(str(self.onchoImage), ContentFile(image_png), save=False)
-        # print('number of lines in test is ', len(contours)/2 )
-
-        # if img== 0:
-        #     oncho_value = "Not Valid 0"
+      
      
         
         super().save(*args, **kwargs)  # Call the "real" save() method.
