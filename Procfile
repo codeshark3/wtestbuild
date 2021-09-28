@@ -1,1 +1,1 @@
-web: gunicorn wtestbuild.wsgi --log-file -
+web: gunicorn wtestbuild/backend.wsgi --log-file -
