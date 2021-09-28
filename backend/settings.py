@@ -46,6 +46,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
+
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -125,15 +129,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
 
 STATICFILES_DIRS =[
-    BASE_DIR / 'static',
-    BASE_DIR / 'webfrontend/build/static'
+    os.path.join(BASE_DIR ,'static'),
+    os.path.join(BASE_DIR,'webfrontend/build/static')
 ]
 
-MEDIA_ROOT = 'static/images'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 CORS_ORIGIN_ALLOW_ALL = True
 # Default primary key field type
