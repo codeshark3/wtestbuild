@@ -46,12 +46,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    
   
 
 
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -67,7 +68,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR,'webfrontend/build')
+            # os.path.join(BASE_DIR,'webfrontend/build')
+             BASE_DIR / 'webfrontend/build'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -131,7 +133,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
 
@@ -148,7 +150,7 @@ STATICFILES_DIRS = [
 
 
 MEDIA_ROOT = BASE_DIR / 'static/images'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
