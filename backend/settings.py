@@ -23,9 +23,9 @@ import os
 SECRET_KEY = 'django-insecure-ze0!cq%q_e+2w77vuy&g7t313+f6y8_)5kq3k3v51nr8e5ajdx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['wtestbuild.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
