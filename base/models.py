@@ -1,7 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-import cv2
+
 from PIL import Image
 import numpy as np
 from django.conf import settings
