@@ -23,7 +23,7 @@ class Test(models.Model):
     age = models.IntegerField( null=True, blank=True)
     sex = models.CharField(max_length=200, null=True, blank=True)
     location = models.CharField(max_length=200, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateField(auto_now=True)
     oncho =models.CharField(max_length=200, null=True, blank=True)
     schisto =models.CharField(max_length=200, null=True, blank=True)
     lf = models.CharField(max_length=200, null=True, blank=True)
